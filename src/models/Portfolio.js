@@ -29,6 +29,7 @@ const siteSchema = new mongoose.Schema({
     contactInfo: {
         city : String,
         state: String,
+        country: String,
         email: String
     }
 });

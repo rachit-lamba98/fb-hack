@@ -1,40 +1,38 @@
 const express = require('express')
-const mongoose = require('mongoose')
+require('./db/mongoose.js')
 const PortfolioSite = require('./models/Portfolio.js')
+const path = require('path')
+const hbs = require('hbs')
 const fs = require('fs')
 
 const app = express()
 const port = process.env.PORT || 3000
 
+filepath = path.join(__dirname, '../public')
+
+app.set('views', path.join(__dirname, '../templates/views'))
+app.set('view engine', 'hbs')
+app.use(express.static(filepath))
 app.use(express.json())
 
-
-var userMap = JSON.parse(fs.readFileSync('config.json', 'utf8'))
-
-
 app.post('/users', async (req, res)=>{
-
-    mongoose.connect('mongodb://127.0.0.1:27017/' + req.body.phoneNumber, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
-    })
 
     const user = new PortfolioSite(req.body)
     try{
         await user.save()
         res.status(201).send('User created!')
     }catch(e){
-        console.log("Could not create user." + e)
         res.status(400).send(e)
     }
 })
 
-app.get('/:url', async (req, res) => {
-    const url = req.params.url 
+app.get('', async (req, res) => {
+    var phone = parseInt(fs.readFileSync(path.resolve(__dirname, '../database.txt'), 'utf8'))
     try{
-        const user = await PortfolioSite.find({siteURL: url})
-        res.send(user)
+        const user = await PortfolioSite.find({phoneNumber: phone})
+        res.render('index',{
+            data: user[0]
+        })
     }catch(e){
         res.status(500).send(e)
     }

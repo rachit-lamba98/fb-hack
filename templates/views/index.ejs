@@ -38,6 +38,9 @@
 </head>
 
 <body>
+    <!-- <% for (var i = 0; i < 5; i++) { %>
+    <%=data.contactInfo.phone%>
+    <% } %> -->
     <header id="header">
 
         <div id="topbar">
@@ -55,7 +58,7 @@
 
             <div class="logo float-left">
                 <!-- Uncomment below if you prefer to use an image logo -->
-                <h1 class="text-light"><a href="#intro" class="scrollto"><span>{{data.siteData.businessName}}</span></a></h1>
+                <h1 class="text-light"><a href="#intro" class="scrollto"><span><%=data.businessName%></span></a></h1>
                 <!-- <a href="#header" class="scrollto"><img src="img/products/bed.png" alt="" class="img-fluid"></a> -->
             </div>
 
@@ -80,14 +83,31 @@
         <div class="container d-flex h-100">
             <div class="row justify-content-center align-self-center">
                 <div class="col-md-6 intro-info order-md-first order-last">
-                    <h2>{{data.siteData.businessName}} <br> <span>{{data.siteData.aboutBusiness}}</span></h2>
+                       <% var s = data.businessName; %>
+
+                        <% var middle = Math.floor(s.length / 2); %>
+                        <% var before = s.lastIndexOf(' ', middle); %>
+                        <% var after = s.indexOf(' ', middle + 1); %>
+                        
+                        <% if (middle - before < after - middle) { %>
+                        <%    middle = before; %>
+                        <% } else { %>
+                        <%    middle = after; %>
+                        <%}%>
+                        
+                       <% var s1 = s.substr(0, middle); %>
+                       <% var s2 = s.substr(middle + 1); %>
+                    <h2><%=s1%> <br> <span><%=s2%></span></h2>
+                   
                     <div>
                         <a href="#team" class="btn-get-started scrollto "><i class="zmdi zmdi-shopping-cart  zmdi-hc-2x " >&nbsp;</i>Shop Now</a>
                     </div>
                 </div>
-
+                <!-- "https://via.placeholder.com/1432x1127" -->
                 <div class="col-md-6 intro-img order-md-last order-first">
-                    <img src="https://via.placeholder.com/1432x1127" alt="intro" class="img-fluid">
+                    <% var url = "https://via.placeholder.com/1432x1127" %>
+                    <% if(data.heroImage){ url = data.heroImage }%>
+                    <img src= <%=url%> alt="intro" class="img-fluid">
                     <!-- ./img/intro.jpg -->
 
                 </div>
@@ -107,7 +127,7 @@
 
                     <div class="col-lg-12 text-center text-lg-center">
                         <h3 class="cta-title">About Our Business</h3>
-                        <p class="cta-text"> {{data.siteData.aboutBusiness}}</p>
+                        <p class="cta-text"> <%=data.aboutBusiness%></p>
                     </div>
                     <!-- <div class="col-lg-3 cta-btn-container text-center">
                         <a class="cta-btn align-middle" href="tel:+919335471585">Call</a>
@@ -135,79 +155,17 @@
                 </header>
 
                 <div class="row">
-
+                    <% for (var i = 0; i < data.products.length; i++) { %>
                     <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-duration="1.4s">
                         <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Curtains"></div>
-                            <h4 class="title"><a href="">Product1</a></h4>
+                            <% var productURL = "https://via.placeholder.com/128" %>
+                            <% if(data.products[i].image.length > 0) productURL = data.products[i].image %>
+                            <div class="icon"><img style="height:100px;width:100px;" src= <%=productURL%> alt="Curtains"></div>
+                            <h4 class="title"><a href=""><%=data.products[i].name%></a></h4>
 
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="  Bed Sheets"></div>
-                            <h4 class="title"><a href="">Product2</a></h4>
-                            <!-- <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat tarad limino ata</p> -->
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Mattress"></div>
-                            <h4 class="title"><a href="">Product3</a></h4>
-
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Pillow"></div>
-                            <h4 class="title"><a href="">Product4</a></h4>
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Comforts"></div>
-                            <h4 class="title"><a href="">Product5</a></h4>
-
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Carpets"></div>
-                            <h4 class="title"><a href="">Product6</a></h4>
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Sofa Covers"></div>
-                            <h4 class="title"><a href="">Product7</a></h4>
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Blankets"></div>
-                            <h4 class="title"><a href="">Product8</a></h4>
-
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-                        <div class="box">
-                            <div class="icon"><img style="height:100px;width:100px;" src="https://via.placeholder.com/128" alt="Cushion Covers"></div>
-                            <h4 class="title"><a href="">Product9</a></h4>
-
-                        </div>
-                    </div>
-
-
-
+                    <% } %>
                 </div>
 
             </div>
@@ -245,90 +203,21 @@
                 </header>
 
                 <div class="row portfolio-container">
-
+                <% for (var i = 0; i < data.galleryImages.length; i++) { %>
                     <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                         <div class="portfolio-wrap">
-                            <img src="https://via.placeholder.com/1024x768" class="img-fluid" alt="">
+                            <img src= <%=data.galleryImages[i].image %> class="img-fluid" alt="">
                             <div class="portfolio-info">
-                                <h4><a href="#">Tittle</a></h4>
+                                <h4><a href="#"><%=data.galleryImages[i].title%></a></h4>
 
                                 <div>
-                                    <a href="https://via.placeholder.com/1024x768" data-lightbox="portfolio" data-title="App 1" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+                                    <a href= <%=data.galleryImages[i].image%> data-lightbox="portfolio" data-title="App 1" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-                        <div class="portfolio-wrap">
-                            <img src="https://via.placeholder.com/1271x918" class="img-fluid" alt="">
-                            <div class="portfolio-info">
-                                <h4><a href="#">Tittle</a></h4>
-
-                                <div>
-                                    <a href="https://via.placeholder.com/1271x918" class="link-preview" data-lightbox="portfolio" data-title="Web 3" title="Preview"><i class="ion ion-eye"></i></a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
-                        <div class="portfolio-wrap">
-                            <img src="https://via.placeholder.com/1158x960" class="img-fluid" alt="">
-                            <div class="portfolio-info">
-                                <h4><a href="#">Tittle</a></h4>
-
-                                <div>
-                                    <a href="https://via.placeholder.com/1158x960" class="link-preview" data-lightbox="portfolio" data-title="App 2" title="Preview"><i class="ion ion-eye"></i></a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <div class="portfolio-wrap">
-                            <img src="https://via.placeholder.com/780x1040" class="img-fluid" alt="">
-                            <div class="portfolio-info">
-                                <h4><a href="#">Tittle</a></h4>
-
-                                <div>
-                                    <a href="https://via.placeholder.com/780x1040" class="link-preview" data-lightbox="portfolio" data-title="Card 2" title="Preview"><i class="ion ion-eye"></i></a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-                        <div class="portfolio-wrap">
-                            <img src="https://via.placeholder.com/713x989" class="img-fluid" alt="">
-                            <div class="portfolio-info">
-                                <h4><a href="#">Tittle</a></h4>
-
-                                <div>
-                                    <a href="ttps://via.placeholder.com/713x989" class="link-preview" data-lightbox="portfolio" data-title="Web 2" title="Preview"><i class="ion ion-eye"></i></a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
-                        <div class="portfolio-wrap">
-                            <img src="https://via.placeholder.com/1080x987" class="img-fluid" alt="">
-                            <div class="portfolio-info">
-                                <h4><a href="#">Tittle</a></h4>
-
-                                <div>
-                                    <a href="https://via.placeholder.com/1080x987" class="link-preview" data-lightbox="portfolio" data-title="App 3" title="Preview"><i class="ion ion-eye"></i></a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <% } %>
 
                 </div>
 
@@ -474,9 +363,9 @@
                                 <div class="footer-links ">
                                     <h4>Contact Us</h4>
                                     <p>
-                                        City:  {{data.siteData.contactInfo.city}}<br> State: {{data.siteData.contactInfo.state}}<br> Country: {{data.siteData.contactInfo.country}}<br>
-                                        <strong>Phone:</strong> +{{data.phoneNumber}}<br>
-                                        <strong>Email:</strong> {{data.siteData.contactInfo.email}}<br>
+                                        City: <%= data.contactInfo.city %><br> State: <%= data.contactInfo.state %><br> Country:<%= data.contactInfo.country %><br>
+                                        <strong>Phone:</strong> +<%= data.contactInfo.phone %><br>
+                                        <strong>Email:</strong> <%= data.contactInfo.email %><br>
                                     </p>
                                 </div>
 
@@ -590,6 +479,12 @@
 
     <!-- Template Main Javascript File -->
     <script src="js/main.js "></script>
+    <script>
+        console.log("here")
+        $.get("/", function(data, status){
+            console.log(data)
+        });
+    </script>
 
 </body>
 

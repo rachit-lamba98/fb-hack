@@ -30,7 +30,8 @@ const siteSchema = new mongoose.Schema({
         city : String,
         state: String,
         country: String,
-        email: String
+        email: String,
+        phone: Number
     }
 });
 
